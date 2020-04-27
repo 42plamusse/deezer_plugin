@@ -12,32 +12,87 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  bool _isConnected = false;
+  bool _isTrackPlaying = false;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    connectDeezer();
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
+  Future<void> connectDeezer() async {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await DeezerPlugin.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      final bool connected = await DeezerPlugin.connect(appId: "404304");
+      if (!mounted) return;
+      setState(() {
+        _isConnected = connected;
+      });
+      print("here");
+    } catch (e) {
+      setState(() {
+        _isConnected = false;
+      });
+      print(e.toString());
     }
+  }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
+  Future<void> logoutDeezer() async {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      final bool connected = await DeezerPlugin.logout;
+      if (!mounted) return;
+      setState(() {
+        _isConnected = false;
+      });
+      print("here");
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+  Future<void> playTrack(String trackId) async {
+    try {
+      final bool success = await DeezerPlugin.playTrack(trackId: trackId);
+      if (!mounted) return;
+      setState(() {
+        _isTrackPlaying = success;
+      });
+      print("here");
+    } catch (e) {
+      setState(() {
+        _isTrackPlaying = false;
+      });
+      print(e.toString());
+    }
+  }
+
+  Future<void> play() async {
+    try {
+      await DeezerPlugin.play;
+      if (!mounted) return;
+      setState(() {
+        _isTrackPlaying = true;
+      });
+      print("here");
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> pause() async {
+    try {
+      await DeezerPlugin.pause;
+      if (!mounted) return;
+      setState(() {
+        _isTrackPlaying = false;
+      });
+      print("here");
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -48,7 +103,36 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: <Widget>[
+              Text(_isConnected ? 'Connected' : 'Not connected'),
+              Text(_isTrackPlaying ? 'playing' : 'Not playing'),
+
+              RaisedButton(
+                onPressed: connectDeezer,
+                child: Text("Connect"),
+              ),
+              RaisedButton(
+                onPressed: logoutDeezer,
+                child: Text("Log out"),
+              ),
+              Row(
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.play_arrow),
+                    onPressed: () => play(),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.pause),
+                    onPressed: () => pause(),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => playTrack("478079022"),
         ),
       ),
     );

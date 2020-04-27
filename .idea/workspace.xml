@@ -3,6 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="493811a6-345e-43d3-8f50-4623a00a7687" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/example/deezer_plugin/DeezerPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/example/deezer_plugin/DeezerPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deezer_plugin.iml" beforeDir="false" afterPath="$PROJECT_DIR$/deezer_plugin.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/deezer_plugin.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/deezer_plugin.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/deezer_plugin_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/deezer_plugin_test.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,6 +32,7 @@
   <component name="ProjectId" id="1aZWPjN02JeMIfqjj7X4mwLDDg4" />
   <component name="PropertiesComponent">
     <property name="dart.analysis.tool.window.force.activate" value="false" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>

@@ -1,0 +1,22 @@
+PODS:
+  - deezer_plugin (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - deezer_plugin (from `.symlinks/plugins/deezer_plugin/ios`)
+  - Flutter (from `Flutter`)
+
+EXTERNAL SOURCES:
+  deezer_plugin:
+    :path: ".symlinks/plugins/deezer_plugin/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  deezer_plugin: cacd11520b391d4a4f952da40b2ae36c0ab4388d
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+
+PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
+
+COCOAPODS: 1.9.3

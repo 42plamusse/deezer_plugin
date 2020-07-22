@@ -105,20 +105,7 @@ public class DeezerPlugin implements FlutterPlugin, ActivityAware, MethodCallHan
             public void onComplete(Bundle bundle) {
                 SessionStore sessionStore = new SessionStore();
                 sessionStore.save(deezerConnect, DeezerPlugin.context);
-                if (trackPlayer != null) {
-                    trackPlayer.stop();
-                    trackPlayer.release();
-                    trackPlayer = null;
-                }
-                try {
-                    trackPlayer = new TrackPlayer(DeezerPlugin.activity.getApplication(), deezerConnect,
-                            new WifiAndMobileNetworkStateChecker());
-                    setListener();
-                } catch (TooManyPlayersExceptions tooManyPlayersExceptions) {
-                    tooManyPlayersExceptions.printStackTrace();
-                } catch (DeezerError deezerError) {
-                    deezerError.printStackTrace();
-                }
+                setTrackPlayer();
                 result.success(true);
             }
 
@@ -157,6 +144,23 @@ public class DeezerPlugin implements FlutterPlugin, ActivityAware, MethodCallHan
         });
     }
 
+    private void setTrackPlayer() {
+        if (trackPlayer != null) {
+            trackPlayer.stop();
+            trackPlayer.release();
+            trackPlayer = null;
+        }
+        try {
+            trackPlayer = new TrackPlayer(DeezerPlugin.activity.getApplication(), deezerConnect,
+                    new WifiAndMobileNetworkStateChecker());
+            setListener();
+        } catch (TooManyPlayersExceptions tooManyPlayersExceptions) {
+            tooManyPlayersExceptions.printStackTrace();
+        } catch (DeezerError deezerError) {
+            deezerError.printStackTrace();
+        }
+    }
+
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull final Result result) {
         final String method = call.method;
@@ -168,20 +172,7 @@ public class DeezerPlugin implements FlutterPlugin, ActivityAware, MethodCallHan
             final SessionStore sessionStore = new SessionStore();
             final Boolean restored = sessionStore.restore(deezerConnect, DeezerPlugin.context);
             if (restored && deezerConnect.isSessionValid()) {
-                if (trackPlayer != null) {
-                    trackPlayer.stop();
-                    trackPlayer.release();
-                    trackPlayer = null;
-                }
-                try {
-                    trackPlayer = new TrackPlayer(DeezerPlugin.activity.getApplication(), deezerConnect,
-                            new WifiAndMobileNetworkStateChecker());
-                    setListener();
-                } catch (TooManyPlayersExceptions tooManyPlayersExceptions) {
-                    tooManyPlayersExceptions.printStackTrace();
-                } catch (DeezerError deezerError) {
-                    deezerError.printStackTrace();
-                }
+                setTrackPlayer();
             }
             result.success(true);
         } else if (method.equals("isSessionValid")) {
@@ -192,6 +183,7 @@ public class DeezerPlugin implements FlutterPlugin, ActivityAware, MethodCallHan
                 result.success(false);
             }
         } else if (method.equals("playTrack")) {
+            setTrackPlayer();
             final String trackId = call.argument("trackId");
             trackPlayer.playTrack(Long.parseLong(trackId));
             result.success(true);
